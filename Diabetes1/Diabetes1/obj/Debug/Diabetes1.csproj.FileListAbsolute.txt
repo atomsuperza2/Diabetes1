@@ -1,0 +1,164 @@
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\ApplicationInsights.config
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\csc.exe
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\System.Collections.Immutable.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\vbc.exe
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\VBCSCompiler.exe
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\roslyn\VBCSCompiler.exe.config
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Diabetes1.dll.config
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Diabetes1.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Diabetes1.pdb
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Antlr3.Runtime.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\EntityFramework.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\EntityFramework.SqlServer.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.Agent.Intercept.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.DependencyCollector.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.PerfCounterCollector.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.ServerTelemetryChannel.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.Web.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.WindowsServer.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.ApplicationInsights.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.Core.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.Owin.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Host.SystemWeb.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Cookies.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Facebook.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Google.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.OAuth.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Twitter.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Web.Infrastructure.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Newtonsoft.Json.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Owin.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.Helpers.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.Mvc.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.Optimization.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.Razor.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.WebPages.Deployment.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.WebPages.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.WebPages.Razor.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\WebGrease.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.DependencyCollector.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.ServerTelemetryChannel.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.Web.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AI.WindowsServer.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.ApplicationInsights.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.Helpers.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.Mvc.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.Optimization.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.Razor.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.WebPages.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.WebPages.Deployment.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\System.Web.WebPages.Razor.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Antlr3.Runtime.pdb
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Newtonsoft.Json.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\EntityFramework.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\EntityFramework.SqlServer.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.Core.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.Owin.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Host.SystemWeb.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Facebook.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Cookies.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.OAuth.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Google.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Twitter.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\obj\Debug\Diabetes1.dll
+c:\users\dell\documents\visual studio 2015\Projects\Diabetes1\Diabetes1\obj\Debug\Diabetes1.pdb
+C:\Users\DELL\Documents\Visual Studio 2015\Projects\Diabetes1\Diabetes1\obj\Debug\Diabetes1.csprojResolveAssemblyReference.cache
+E:\Diabetes\Diabetes1\Diabetes1\bin\ApplicationInsights.config
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\csc.exe
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\System.Collections.Immutable.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\System.Reflection.Metadata.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\vbc.exe
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\VBCSCompiler.exe
+E:\Diabetes\Diabetes1\Diabetes1\bin\roslyn\VBCSCompiler.exe.config
+E:\Diabetes\Diabetes1\Diabetes1\bin\Diabetes1.dll.config
+E:\Diabetes\Diabetes1\Diabetes1\bin\Diabetes1.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Diabetes1.pdb
+E:\Diabetes\Diabetes1\Diabetes1\bin\Antlr3.Runtime.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\EntityFramework.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\EntityFramework.SqlServer.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.DependencyCollector.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.Web.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.WindowsServer.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.ApplicationInsights.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Google.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Web.Infrastructure.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Newtonsoft.Json.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\Owin.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.Helpers.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.Mvc.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.Optimization.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.Razor.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.WebPages.Deployment.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.WebPages.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.WebPages.Razor.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\WebGrease.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\EntityFramework.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\EntityFramework.SqlServer.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.DependencyCollector.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.Web.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AI.WindowsServer.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.ApplicationInsights.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.Helpers.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.Mvc.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.Optimization.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.Razor.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.WebPages.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.WebPages.Deployment.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\System.Web.WebPages.Razor.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Antlr3.Runtime.pdb
+E:\Diabetes\Diabetes1\Diabetes1\bin\Newtonsoft.Json.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Google.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Diabetes\Diabetes1\Diabetes1\obj\Debug\Diabetes1.dll
+E:\Diabetes\Diabetes1\Diabetes1\obj\Debug\Diabetes1.pdb
+E:\Diabetes\Diabetes1\Diabetes1\obj\Debug\Diabetes1.csprojResolveAssemblyReference.cache

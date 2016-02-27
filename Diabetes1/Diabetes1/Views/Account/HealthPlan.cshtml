@@ -1,0 +1,157 @@
+﻿@using Diabetes1.Models
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Diabetes1.Models;
+@{
+    ViewBag.Title = "HealthPlan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<h2>HealthPlan</h2>
+<div>
+    @* add glycemic *@
+    <form action="/Account/AddGlycemic" method="post">
+        <input name="value" />
+        <input type="submit" />
+    </form>
+
+    @* Display chart *@
+    <canvas id="myChart" width="700" height="400"></canvas>
+    @* Add food *@
+    <form action="/Account/AddFood" method="post">
+        <select name="id">
+            <option>---Food---</option>
+            @{
+                List<Food> foods = (List<Food>)ViewData["Foods"];
+                foreach (var food in foods)
+                {
+                    <option value="@food.id_food">@food.food_name</option>
+                }
+            }
+        </select>
+        <input type="submit" value="Add Food" />
+    </form>
+    @* Add Activity *@
+    <form action="/Account/AddActivity" method="post">
+        <select name="id">
+            <option>---Activity---</option>
+            @{
+                List<Activity> activities = (List<Activity>)ViewData["Activities"];
+                foreach (var activity in activities)
+                {
+                    <option value="@activity.id_activity">@activity.activity_name</option>
+                }
+            }
+        </select>
+
+        <input type="submit" value="Add Activity" />
+    </form>
+
+    <div>
+        @* value in user body *@
+        @{
+            if (Request.IsAuthenticated)
+            {
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var currentUser = manager.FindById(User.Identity.GetUserId());
+
+                if (@currentUser.UserProfileInfo.Gender)
+                {
+                    <div>Overall User BMR: @{ double bmrm = Double.Parse(ViewData["BMRM"].ToString()); @bmrm }</div>
+                        }
+                        else {
+                            <div>Overall User BMR: @{ double bmrf = Double.Parse(ViewData["BMRF"].ToString()); @bmrf }</div>
+                                    }
+                                }
+        }
+        <div>Overall User MBI: @{ double bmi = Double.Parse(ViewData["BMI"].ToString()); @bmi }</div>
+        <div>Overall Food Calories: @{ double calories = Double.Parse(ViewData["Calories"].ToString()); @calories }</div>
+        <div>Overall Activity Calories: @{ double caloriesA = Double.Parse(ViewData["caloriesA"].ToString()); @caloriesA }</div>
+        <div>Overall Glycemic: @{ double glycemic = Double.Parse(ViewData["Glycemic"].ToString()); @glycemic }</div>
+        <div>
+            @* Delete food *@
+            <h1>Foods</h1>
+            <div>
+                <table>
+                    <tr><th>Name</th><th>Delete</th></tr>
+                    @{
+                        List<UserFood> userFoods = (List<UserFood>)ViewData["UserFoods"];
+                    }
+                    @foreach (var ufood in userFoods)
+                    {
+                        var ofood = db.Foods.Find(ufood.FoodId);
+                        <tr>
+                            <td>@ofood.food_name</td>
+                            <td>
+                                <form action="/Account/DeleteFood/" method="post">
+                                    <input type="hidden" name="id" value="@ufood.Id" />
+                                    <input type="submit" value="Delete" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div>
+            @* Delete activity *@
+            <h1>Activities</h1>
+            <div>
+                <table>
+                    <tr><th>Name</th><th>Delete</th></tr>
+                    @{
+                        List<UserActivity> userActivities = (List<UserActivity>)ViewData["UserActivities"];
+                    }
+                    @if (userActivities != null)
+                    {
+                        foreach (var uact in userActivities)
+                        {
+                            var oact = db.Activities.Find(uact.ActivityId);
+                            <tr>
+                                <td>@oact.activity_name</td>
+                                <td>
+                                    <form action="/Account/DeleteActivity/" method="post">
+                                        <input type="hidden" name="id" value="@uact.Id" />
+                                        <input type="submit" value="Delete" />
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    @* graph glycimic *@
+    <script>
+    @{
+        List<UserGlycemic> glycemicList = (List<UserGlycemic>)ViewData["UserGlycemic"];
+    }
+        var data = [@{ for (int i = 0; i < glycemicList.Count;i++) { string result = '"' + glycemicList[i].Value.ToString() + '"'; @Html.Raw(result) if (i + 1 < glycemicList.Count) { @Html.Raw(",") } } }]
+        var label = [@{ for (int i = 0; i < glycemicList.Count;i++) { string result = '"' + glycemicList[i].Date.ToShortDateString() + '"'; @Html.Raw(result) if (i + 1 < glycemicList.Count) { @Html.Raw(",") } } }]
+
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var data = {
+            labels: label,
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: data
+                },
+            ]
+        };
+        var option = {
+            scaleOverride: true,
+            scaleSteps: 5,
+            scaleStepWidth: 100,
+            scaleStartValue: 0
+        }
+        var myNewChart = new Chart(ctx).Line(data, option);
+    </script>

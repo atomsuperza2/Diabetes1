@@ -1,0 +1,250 @@
+﻿@using Diabetes1.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+    List<Food> foods = (List<Food>)ViewData["Food"];
+    List<LFood> userFoods = (List<LFood>)ViewData["UserFood"];
+    List<Activity> activities = (List<Activity>)ViewData["Activity"];
+    List<LActivity> userActivity = (List<LActivity>)ViewData["UserActivity"];
+
+    List<TodayActivity> todayActivities = (List<TodayActivity>)ViewData["TodayActivity"];
+    List<TodayFood> todayFoods = (List<TodayFood>)ViewData["TodayFood"];
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Eat Today</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>All Food</strong>
+                    <form method="post" action="/Account/AddTodayFood">
+                        <select name="value">
+                            <option>--- Select ---</option>
+                            @if (foods != null)
+                            {
+                                foreach (var v in foods)
+                                {
+                                    <option value="@v.id_food">@v.food_name</option>
+                                }
+                            }
+                        </select>
+                        <input type="submit" value="Add" />
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <strong>Health Plan</strong>
+                    <form method="post" action="/Account/AddTodayFood">
+                        <select name="value">
+                            <option>--- Select ---</option>
+                            @if (userFoods != null)
+                            {
+                                foreach (var v in userFoods)
+                                {
+                                    <option value="@v.id_food">@v.food_name</option>
+                                }
+                            }
+                        </select>
+                        <input type="submit" value="Add" />
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Calories</th>
+                        </tr>
+
+                        @if (todayFoods != null)
+                        {
+                            foreach (var v in todayFoods)
+                            {
+                                Food food = db.Foods.Find(v.FoodId);
+                                <tr><td>@food.food_name</td><td>@food.food_Calories</td></tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+            <h4>Activity Today</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>All Activity</strong>
+                    <form method="post" action="/Account/AddTodayActivity">
+                        <select name="value">
+                            <option>--- Select ---</option>
+                            @if (activities != null)
+                            {
+                                foreach (var v in activities)
+                                {
+                                    <option value="@v.id_activity">@v.activity_name</option>
+                                }
+                            }
+                        </select>
+                        <input type="submit" value="Add" />
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <strong>Health Plan</strong>
+                    <form method="post" action="/Account/AddTodayActivity">
+                        <select name="value">
+                            <option>--- Select ---</option>
+                            @if (userActivity != null)
+                            {
+                                foreach (var v in userActivity)
+                                {
+                                    <option value="@v.id_activity">@v.activity_name</option>
+                                }
+                            }
+                        </select>
+                        <input type="submit" value="Add" />
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Calories</th>
+                        </tr>
+
+                        @if (todayActivities != null)
+                        {
+                            foreach (var v in todayActivities)
+                            {
+                                Activity activity = db.Activities.Find(v.ActivityId);
+                                <tr><td>@activity.activity_name</td><td>@activity.activity_calories</td></tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <canvas id="myChart" width="700" height="400"></canvas>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3>Medicine Today</h3>
+            <form action="/Account/UpdateMedicine/" method="post">
+                <table>
+                    <tr><th>Medicine</th></tr>
+                    @{
+                        List<Medicine> userMedicine = (List<Medicine>)ViewData["Medicines"];
+                        int status = 1;
+                    }
+                    <Medicine>
+                        <Medicine>
+                            @foreach (var um in userMedicine)
+                            {
+                                var om = db.Medicines.Find(um.Id);
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="medicine[]" value="@um.Id" @if (@um.Take == 1) { if (um.Today.Day == DateTime.Now.Day) { @Html.Raw("checked")          } else { status = 2; } } /> @um.MedicineName
+                                    </td>
+                                </tr>
+                            }
+                </table>
+                <input type="submit" value="Save" />
+            </form>
+            <div>
+                <h3>Status Today</h3>
+                <div class="text-center" style="background-color: @{ if (status == 1) { @Html.Raw(" green") } else if (status == 3) { @Html.Raw("red") } else { @Html.Raw("yellow") } } ">
+                    <img src="~/img/human_body.png" height="200" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    @{
+        List<double> graphFood = (List<double>)ViewData["GraphFood"];
+        List<double> graphActivity = (List<double>)ViewData["GraphActivity"];
+        List<double> graphGlycemic = (List<double>)ViewData["GraphGlycemic"];
+        List<DateTime> dates = (List<DateTime>)ViewData["Date"];
+    }
+    var food = [@{ for (int i = 0; i < graphFood.Count; i++) {
+            string result = '"' + graphFood[i].ToString() + '"';
+            @Html.Raw(result)
+            if (i + 1 < graphFood.Count) {
+                @Html.Raw(",")
+            }
+        }
+        }]
+    var activity = [@{ for (int i = 0; i < graphActivity.Count; i++) {
+            string result = '"' + graphActivity[i].ToString() + '"';
+            @Html.Raw(result)
+            if (i + 1 < graphActivity.Count) {
+            @Html.Raw(",")
+            }
+        }
+    }]
+    var glycemic = [@{ for (int i = 0; i < graphGlycemic.Count; i++) {
+            string result = '"' + graphGlycemic[i].ToString() + '"';
+            @Html.Raw(result)
+            if (i + 1 < graphGlycemic.Count) {
+            @Html.Raw(",")
+            }
+        }
+    }]
+    @{ int today = 0;}
+    var label = [@{ for (int i = 0; i < dates.Count;i++) {
+            
+            if (today != dates[i].Date.Day)
+            {
+                string result = '"' + dates[i].Date.ToShortDateString() + '"';
+                @Html.Raw(result)
+                if (i + 1 < dates.Count) {
+                     @Html.Raw(",")
+                }
+            }
+            today = dates[i].Date.Day;
+        } }]
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var data = {
+        labels: label,
+        datasets: [
+            {
+                label: "Activity",
+                fillColor: "rgba(220,220,0,0.2)",
+                strokeColor: "rgba(220,220,0,1)",
+                pointColor: "rgba(220,220,0,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,0,1)",
+                data: activity
+            },
+             {
+                 label: "Food",
+                 fillColor: "rgba(151,187,205,0.2)",
+                 strokeColor: "rgba(151,187,205,1)",
+                 pointColor: "rgba(151,187,205,1)",
+                 pointStrokeColor: "#fff",
+                 pointHighlightFill: "#fff",
+                 pointHighlightStroke: "rgba(151,187,205,1)",
+                 data: food
+             },
+              {
+                  label: "Glycemic",
+                  fillColor: "rgba(151,0,205,0.2)",
+                  strokeColor: "rgba(151,0,205,1)",
+                  pointColor: "rgba(151,0,205,1)",
+                  pointStrokeColor: "#fff",
+                  pointHighlightFill: "#fff",
+                  pointHighlightStroke: "rgba(151,0,205,1)",
+                  data: glycemic
+              },
+        ]
+    };
+    var option = {
+        scaleOverride: true,
+        scaleSteps: 5,
+        scaleStepWidth: 200,
+        scaleStartValue: 0
+    }
+    var myNewChart = new Chart(ctx).Line(data, option);
+</script>
