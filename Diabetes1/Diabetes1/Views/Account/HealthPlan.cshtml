@@ -8,122 +8,297 @@
     ApplicationDbContext db = new ApplicationDbContext();
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-<h2>HealthPlan</h2>
-<div>
-    @* add glycemic *@
-    <form action="/Account/AddGlycemic" method="post">
-        <input name="value" />
-        <input type="submit" />
-    </form>
 
-    @* Display chart *@
-    <canvas id="myChart" width="700" height="400"></canvas>
-    @* Add food *@
-    <form action="/Account/AddFood" method="post">
-        <select name="id">
-            <option>---Food---</option>
-            @{
-                List<Food> foods = (List<Food>)ViewData["Foods"];
-                foreach (var food in foods)
-                {
-                    <option value="@food.id_food">@food.food_name</option>
-                }
-            }
-        </select>
-        <input type="submit" value="Add Food" />
-    </form>
-    @* Add Activity *@
-    <form action="/Account/AddActivity" method="post">
-        <select name="id">
-            <option>---Activity---</option>
-            @{
-                List<Activity> activities = (List<Activity>)ViewData["Activities"];
-                foreach (var activity in activities)
-                {
-                    <option value="@activity.id_activity">@activity.activity_name</option>
-                }
-            }
-        </select>
 
-        <input type="submit" value="Add Activity" />
-    </form>
+@*///////////////////////////////////////////////////////////////////////////////////*@
 
-    <div>
-        @* value in user body *@
-        @{
-            if (Request.IsAuthenticated)
-            {
-                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                var currentUser = manager.FindById(User.Identity.GetUserId());
+    
+    <div class="row">
+        <div class="col-xs-6 ">
+            <dl class="dl-horizontal">
+                <dt>Add your blood sugar:</dt>
+                <dd>
+                   
+                        <form action="/Account/AddGlycemic" method="post">
+                            <input name="value" />
+                            <input type="submit" class="btn btn-primary btn-sm"/>
+                           
+                        </form>
+                   
+                </dd>
+                </dl>
 
-                if (@currentUser.UserProfileInfo.Gender)
-                {
-                    <div>Overall User BMR: @{ double bmrm = Double.Parse(ViewData["BMRM"].ToString()); @bmrm }</div>
-                        }
-                        else {
-                            <div>Overall User BMR: @{ double bmrf = Double.Parse(ViewData["BMRF"].ToString()); @bmrf }</div>
-                                    }
-                                }
-        }
-        <div>Overall User MBI: @{ double bmi = Double.Parse(ViewData["BMI"].ToString()); @bmi }</div>
-        <div>Overall Food Calories: @{ double calories = Double.Parse(ViewData["Calories"].ToString()); @calories }</div>
-        <div>Overall Activity Calories: @{ double caloriesA = Double.Parse(ViewData["caloriesA"].ToString()); @caloriesA }</div>
-        <div>Overall Glycemic: @{ double glycemic = Double.Parse(ViewData["Glycemic"].ToString()); @glycemic }</div>
-        <div>
-            @* Delete food *@
-            <h1>Foods</h1>
-            <div>
-                <table>
-                    <tr><th>Name</th><th>Delete</th></tr>
-                    @{
-                        List<UserFood> userFoods = (List<UserFood>)ViewData["UserFoods"];
-                    }
-                    @foreach (var ufood in userFoods)
-                    {
-                        var ofood = db.Foods.Find(ufood.FoodId);
-                        <tr>
-                            <td>@ofood.food_name</td>
-                            <td>
-                                <form action="/Account/DeleteFood/" method="post">
-                                    <input type="hidden" name="id" value="@ufood.Id" />
-                                    <input type="submit" value="Delete" />
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        </div>
-        <div>
-            @* Delete activity *@
-            <h1>Activities</h1>
-            <div>
-                <table>
-                    <tr><th>Name</th><th>Delete</th></tr>
-                    @{
-                        List<UserActivity> userActivities = (List<UserActivity>)ViewData["UserActivities"];
-                    }
-                    @if (userActivities != null)
-                    {
-                        foreach (var uact in userActivities)
-                        {
-                            var oact = db.Activities.Find(uact.ActivityId);
-                            <tr>
-                                <td>@oact.activity_name</td>
-                                <td>
-                                    <form action="/Account/DeleteActivity/" method="post">
-                                        <input type="hidden" name="id" value="@uact.Id" />
-                                        <input type="submit" value="Delete" />
-                                    </form>
-                                </td>
-                            </tr>
-                        }
-                    }
-                </table>
-            </div>
-        </div>
+                <canvas id="myChart" width="1000" height="200"></canvas>
+</div>
+       
+        @*<div class="col-xs-6 col-md-4"></div>*@
     </div>
-    @* graph glycimic *@
+<br>
+
+
+    <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+    <div class="row">
+        <div class="col-xs-6 ">
+            <dl class="dl-horizontal">
+
+                @*<dt> Overall User BMR: </dt>*@
+
+                <div class="panel panel-info">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading"> <h4>ตารางค่าต่างๆที่เกียวกับร่างกายผู้ป่วย</h4></div>
+
+                    <!-- Table -->
+                    <table class="table">
+                        <tr>
+                            <th>
+                                <p>BMR//ค่าแคลล่อรี่ที่เหมาะสมต่อวัน:</p>
+                            </th>
+                            <th>
+                       
+<dd>
+                    <p>
+                        @{
+                            if (Request.IsAuthenticated)
+                            {
+                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                                var currentUser = manager.FindById(User.Identity.GetUserId());
+                                String BMR;
+                                if (@currentUser.UserProfileInfo.Gender)
+                                {
+
+                                    double bmrm = Double.Parse(ViewData["BMRM"].ToString()); @bmrm
+                                }
+                                else {
+                                    double bmrf = Double.Parse(ViewData["BMRF"].ToString()); @bmrf
+                                }
+                            }
+                        }
+                    </p>
+                </dd>
+                </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <p>BMณ//ค่ามวลร่างกานผู้ป่วย:</p>
+                    </th>
+                    <th>
+
+                <dd>
+                    <p>
+                        @{ double bmi = Double.Parse(ViewData["BMI"].ToString()); @bmi }
+                    </p>
+                </dd>
+                </th>
+                </tr>
+
+                    </table>
+</div>
+                 
+                
+
+        <div class="panel panel-info">
+            <!-- Default panel contents -->
+            <div class="panel-heading"> <h4>ค่าสารอาหารที่จะได้รับจากการวางแผนอาหาร</h4></div>
+
+            <!-- Table -->
+            <table class="table">
+                <tr>
+                    <th>
+                        <p>Food Calories//ค่าแคลล่อรี่ที่ได้จากอาหาร:</p>
+                    </th>
+                    <th>
+
+                        <dd>
+                            <p>
+                                @{ double calories = Double.Parse(ViewData["Calories"].ToString()); @calories }
+                            </p>
+                        </dd>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <p>Glycemic index//ค่าเฉลี่ยน้ำตาลที่ได้จากอาหาร:</p>
+                    </th>
+                    <th>
+
+                        <dd>
+                            <p>
+                                @{ double glycemic = Double.Parse(ViewData["Glycemic"].ToString()); @glycemic }
+                            </p>
+                        </dd>
+                    </th>
+                </tr>
+
+            </table>
+        </div>
+
+
+                @*<dt> Overall Activity Calories:</dt>
+                <dd>
+                    <p>
+                        @{ double caloriesA = Double.Parse(ViewData["caloriesA"].ToString()); @caloriesA }
+                    </p>
+                </dd>*@
+             
+</div>
+       
+
+
+        <div class="col-xs-6">
+
+            <div class="panel panel-info">
+                <!-- Default panel contents -->
+                <div class="panel-heading"> <h4>ตารางเปรียบเที่ยบระดับค่า BMI</h4></div>
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            <p><img src="~/img/BMIเช็คระดับ.png" width="550" height="200" class="img-thumbnail"></p>
+                        </th>
+                      </tr>  
+                    </table>
+            </div>
+                
+
+            </div>
+
+       
+<br>
+
+
+<div class="row">
+    <div class="col-xs-6 ">
+
+        @* Add food *@
+        <form action="/Account/AddFood" method="post">
+
+            <select name="id" >
+                <option>---กรุณาเลือกรายการอาหารที่ท่านต้องการ---</option>
+                @{
+                    List<Food> foods = (List<Food>)ViewData["Foods"];
+                    foreach (var food in foods)
+                    {
+                        <option value="@food.id_food">@food.food_name</option>
+                    }
+                }
+            </select>
+
+            <input type="submit" value="เพิ่มในรายการ" class="btn btn-primary"/>
+            
+        </form>
+    </div>
+    
+    @*<div class="col-xs-6 ">*@
+
+
+         @*Add Activity*@ 
+        @*<form action="/Account/AddActivity" method="post">
+            <select name="id">
+                <option>---Activity---</option>
+                @{
+                    List<Activity> activities = (List<Activity>)ViewData["Activities"];
+                    foreach (var activity in activities)
+                    {
+                        <option value="@activity.id_activity">@activity.activity_name</option>
+                    }
+                }
+            </select>
+
+            <input type="submit" value="Add Activity" />
+        </form>
+
+    </div>*@
+
+
+    </div>
+
+
+
+    <!-- Columns are always 50% wide, on mobile and desktop -->
+    <div class="row">
+        <div class="col-xs-6"><div>
+    @* Delete food *@
+                                  <div class="panel panel-info">
+                                      <!-- Default panel contents -->
+                                      <div class="panel-heading">Food Plan // วางแผนอาหาร</div>
+                                      
+                                      
+                                      <table class="table">
+                                          <tr><th>รายการอาหารที่เลือกไว้</th></tr>
+                                          @{
+                                              List<UserFood> userFoods = (List<UserFood>)ViewData["UserFoods"];
+                                          }
+                                          @foreach (var ufood in userFoods)
+                                          {
+                                              var ofood = db.Foods.Find(ufood.FoodId);
+
+
+                                              <tr>
+                                                  <td>@ofood.food_name</td>
+
+
+                                                  <td>
+                                                      <form action="/Account/DeleteFood/" method="post">
+                                                          <input type="hidden" name="id" value="@ufood.Id" />
+                                                          <input type="submit" value="Delete" />
+                                                      </form>
+                                                  </td>
+
+
+
+                                              </tr>
+
+
+
+
+                                          }
+                                      </table>
+                                  </div>
+</div></div>
+        <div class="col-xs-6"><div>
+    @* Delete activity *@
+    @*<h1>Activities</h1>
+    <div>
+        <table>
+            <tr><th>Name</th></tr>
+            @{
+                List<UserActivity> userActivities = (List<UserActivity>)ViewData["UserActivities"];
+            }
+            @if (userActivities != null)
+            {
+                foreach (var uact in userActivities)
+                {
+                    var oact = db.Activities.Find(uact.ActivityId);
+                    <tr>
+                        <td>@oact.activity_name</td>
+                        <td>
+                            <form action="/Account/DeleteActivity/" method="post">
+                                <input type="hidden" name="id" value="@uact.Id" />
+                                <input type="submit" value="Delete" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>*@
+</div></div>
+    </div>
+    
+    
+    @*///////////////////////////////////////////////////////////////////////////////////*@ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     @* graph glycimic *@
     <script>
     @{
         List<UserGlycemic> glycemicList = (List<UserGlycemic>)ViewData["UserGlycemic"];

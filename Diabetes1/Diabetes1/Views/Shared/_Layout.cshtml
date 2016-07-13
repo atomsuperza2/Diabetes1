@@ -11,20 +11,66 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
+
             <div class="navbar-header">
+
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Diabetes Care", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
+                       <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Patient <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li>@Html.ActionLink("Patient login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="http://localhost:54941/Home/About">How use this app</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="http://localhost:54941/Account/HealthPlan">Health monitor</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="http://localhost:54941/Account/Index">Behavior monitor</a></li>
+                        </ul>
+                           @*@Html.Partial("_LoginPartial")*@
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nutritionists<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                       
+                            <li><a href="#">Login nutritionists</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Nutrition management</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nure/Doctor <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Login</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Enter Patient to system", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Patient list</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Activity management</a></li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li>
+                            @Html.ActionLink("Administration", "Home", "Admin")</li>
+                        }
+
+</ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

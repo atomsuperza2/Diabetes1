@@ -162,3 +162,7 @@ E:\Diabetes\Diabetes1\Diabetes1\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\Diabetes\Diabetes1\Diabetes1\obj\Debug\Diabetes1.dll
 E:\Diabetes\Diabetes1\Diabetes1\obj\Debug\Diabetes1.pdb
 E:\Diabetes\Diabetes1\Diabetes1\obj\Debug\Diabetes1.csprojResolveAssemblyReference.cache
+E:\Diabetes\Diabetes1\Diabetes1\bin\PagedList.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\PagedList.Mvc.dll
+E:\Diabetes\Diabetes1\Diabetes1\bin\PagedList.xml
+E:\Diabetes\Diabetes1\Diabetes1\bin\PagedList.Mvc.xml

@@ -65,7 +65,7 @@ namespace Diabetes1.Models
 
         public System.Data.Entity.DbSet<Diabetes1.Models.Activity> Activities { get; set; }
 
-        public System.Data.Entity.DbSet<Diabetes1.Models.Nutritionists> Nutritionists { get; set; }
+ 
 
         public System.Data.Entity.DbSet<Diabetes1.Models.UserFood> UserFoods { get; set; }
 
@@ -78,5 +78,7 @@ namespace Diabetes1.Models
         public System.Data.Entity.DbSet<Diabetes1.Models.TodayActivity> TodayActivities { get; set; }
 
         public System.Data.Entity.DbSet<Diabetes1.Models.TodayFood> TodayFoods { get; set; }
+
+        public System.Data.Entity.DbSet<Diabetes1.Models.Exercises> Exercises { get; set; }
     }
 }

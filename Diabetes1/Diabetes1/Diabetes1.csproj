@@ -85,6 +85,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -199,11 +207,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ExercisesController.cs" />
     <Compile Include="Controllers\FoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicinesController.cs" />
-    <Compile Include="Controllers\NutritionistsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TodayActivitiesController.cs" />
     <Compile Include="Controllers\TodayFoodsController.cs" />
     <Compile Include="Controllers\UserActivitiesController.cs" />
@@ -215,6 +225,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Exercises.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\GActivity.cs" />
     <Compile Include="Models\GFood.cs" />
@@ -224,25 +235,37 @@
     <Compile Include="Models\LFood.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medicine.cs" />
-    <Compile Include="Models\Nutritionists.cs" />
     <Compile Include="Models\TodayActivity.cs" />
     <Compile Include="Models\TodayFood.cs" />
     <Compile Include="Models\UserActivity.cs" />
     <Compile Include="Models\UserFood.cs" />
     <Compile Include="Models\UserGlycemic.cs" />
+    <Compile Include="Models\UserRolesDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-Diabetes1-20160224022921.mdf" />
+    <Content Include="App_Data\aspnet-Diabetes1-20160224022921_log.ldf">
+      <DependentUpon>aspnet-Diabetes1-20160224022921.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\analyze to day.png" />
+    <Content Include="img\beware.png" />
+    <Content Include="img\BMIเช็คระดับ.png" />
+    <Content Include="img\danger.png" />
+    <Content Include="img\health plan.png" />
     <Content Include="img\human_body.png" />
     <Content Include="img\login-member.png" />
     <Content Include="img\Nytrition login.png" />
+    <Content Include="img\Smile.png" />
+    <Content Include="img\today.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -308,11 +331,6 @@
     <Content Include="Views\Activities\Details.cshtml" />
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
-    <Content Include="Views\Nutritionists\Create.cshtml" />
-    <Content Include="Views\Nutritionists\Delete.cshtml" />
-    <Content Include="Views\Nutritionists\Details.cshtml" />
-    <Content Include="Views\Nutritionists\Edit.cshtml" />
-    <Content Include="Views\Nutritionists\Index.cshtml" />
     <Content Include="Views\Account\HealthPlan.cshtml" />
     <Content Include="Views\UserActivities\Create.cshtml" />
     <Content Include="Views\UserActivities\Delete.cshtml" />
@@ -340,10 +358,24 @@
     <Content Include="Views\TodayFoods\Details.cshtml" />
     <Content Include="Views\TodayFoods\Edit.cshtml" />
     <Content Include="Views\TodayFoods\Index.cshtml" />
+    <Content Include="Views\Account\NutritionPlan.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\ViewAllRoles.cshtml" />
+    <Content Include="Views\Admin\AddRole.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\Admin\EditUser.cshtml" />
+    <Content Include="Views\Admin\EditRoles.cshtml" />
+    <Content Include="Views\Admin\Home.cshtml" />
+    <Content Include="Views\Exercises\Create.cshtml" />
+    <Content Include="Views\Exercises\Delete.cshtml" />
+    <Content Include="Views\Exercises\Details.cshtml" />
+    <Content Include="Views\Exercises\Edit.cshtml" />
+    <Content Include="Views\Exercises\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

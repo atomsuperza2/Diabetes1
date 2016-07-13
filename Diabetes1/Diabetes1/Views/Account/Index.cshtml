@@ -71,7 +71,7 @@
             </div>
             <h4>Activity Today</h4>
             <div class="row">
-                <div class="col-md-6">
+                @*<div class="col-md-6">
                     <strong>All Activity</strong>
                     <form method="post" action="/Account/AddTodayActivity">
                         <select name="value">
@@ -86,8 +86,8 @@
                         </select>
                         <input type="submit" value="Add" />
                     </form>
-                </div>
-                <div class="col-md-6">
+                </div>*@
+                @*<div class="col-md-6">
                     <strong>Health Plan</strong>
                     <form method="post" action="/Account/AddTodayActivity">
                         <select name="value">
@@ -102,10 +102,10 @@
                         </select>
                         <input type="submit" value="Add" />
                     </form>
-                </div>
+                </div>*@
             </div>
             <div class="row">
-                <div class="col-md-12">
+                @*<div class="col-md-12">
                     <table>
                         <tr>
                             <th>Name</th>
@@ -121,7 +121,7 @@
                             }
                         }
                     </table>
-                </div>
+                </div>*@
             </div>
             <div class="row">
                 <canvas id="myChart" width="700" height="400"></canvas>
@@ -174,14 +174,14 @@
             }
         }
         }]
-    var activity = [@{ for (int i = 0; i < graphActivity.Count; i++) {
+    @*var activity = [@{ for (int i = 0; i < graphActivity.Count; i++) {
             string result = '"' + graphActivity[i].ToString() + '"';
             @Html.Raw(result)
             if (i + 1 < graphActivity.Count) {
             @Html.Raw(",")
             }
         }
-    }]
+    }]*@
     var glycemic = [@{ for (int i = 0; i < graphGlycemic.Count; i++) {
             string result = '"' + graphGlycemic[i].ToString() + '"';
             @Html.Raw(result)
@@ -208,16 +208,16 @@
     var data = {
         labels: label,
         datasets: [
-            {
-                label: "Activity",
-                fillColor: "rgba(220,220,0,0.2)",
-                strokeColor: "rgba(220,220,0,1)",
-                pointColor: "rgba(220,220,0,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,0,1)",
-                data: activity
-            },
+            //{
+            //    label: "Activity",
+            //    fillColor: "rgba(220,220,0,0.2)",
+            //    strokeColor: "rgba(220,220,0,1)",
+            //    pointColor: "rgba(220,220,0,1)",
+            //    pointStrokeColor: "#fff",
+            //    pointHighlightFill: "#fff",
+            //    pointHighlightStroke: "rgba(220,220,0,1)",
+            //    data: activity
+            //},
              {
                  label: "Food",
                  fillColor: "rgba(151,187,205,0.2)",

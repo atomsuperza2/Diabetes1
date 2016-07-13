@@ -8,63 +8,15 @@
     ApplicationDbContext db = new ApplicationDbContext();
 }
 
-<h2>DisplayProfile</h2>
+<h2>Add Medecine</h2>
 
 <div>
-    <h4> Your Profile </h4>
-    <hr />
+   
 
     @using Microsoft.AspNet.Identity;
     @using Microsoft.AspNet.Identity.EntityFramework;
     @using Diabetes1.Models;
-    <dl class="dl-horizontal">
-
-        <div>
-            @{
-                if (Request.IsAuthenticated)
-                {
-                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                    var currentUser = manager.FindById(User.Identity.GetUserId());
-                    String gender;
-                    if (@currentUser.UserProfileInfo.Gender)
-                    {
-                        gender = "Male";
-                    }
-                    else {
-                        gender = "Female";
-                    }
-
-
-                    <dt> Name: </dt>
-                    <dd>
-                        <p>@currentUser.UserProfileInfo.FirstName @currentUser.UserProfileInfo.LastName</p>
-                    </dd>
-                    <dt>Gender:</dt>
-                    <dd>
-                        <p>
-                            @gender
-
-                        </p>
-                    </dd>
-                        <dt>Age:</dt>
-                            <dd>
-                                <p>
-                                    @currentUser.UserProfileInfo.Age
-                                </p>
-                            </dd>
-                            <dt>Height:</dt>
-                            <dd>
-                                <p>
-                                    @currentUser.UserProfileInfo.Height
-                                </p>
-                            </dd>
-
-                    }
-                }
-
-
-        </div>
-       
+    <dl class="dl-horizontal">     
         
          <dt>Medicine:</dt>
         <dd>       
@@ -80,16 +32,16 @@
             <table>
                 <tr><th>Name</th><th>Delete</th></tr>
                 @{
-                    List<Medicine> userMedicine = (List<Medicine>)ViewData["Medicines"];
+                    List<Medicine> uMedicine = (List<Medicine>)ViewData["Medicines"];
                 }
-                @foreach (var um in userMedicine)
+                @foreach (var urm in uMedicine)
                 {
-                    var om= db.Medicines.Find(um.Id);
+                    var dm= db.Medicines.Find(urm.Id);
                     <tr>
-                        <td>@om.MedicineName</td>
+                        <td>@dm.MedicineName</td>
                         <td>
                             <form action="/Account/DeleteMedicine/" method="post">
-                                <input type="hidden" name="id" value="@om.Id" />
+                                <input type="hidden" name="id" value="@dm.Id" />
                                 <input type="submit" value="Delete" />
                             </form>
                         </td>

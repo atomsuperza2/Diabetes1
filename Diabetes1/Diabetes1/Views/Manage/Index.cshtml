@@ -1,33 +1,169 @@
 ﻿@model Diabetes1.Models.IndexViewModel
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Diabetes1.Models;
+@{
+    ViewBag.Title = "DisplayProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+}
+
+
 @{
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
+
 
 <p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
+<div class="row"><div class="col-md-3"></div>
+    <div class="col-md-6">
+
+        <h4>ข้อมูลเบื้องต้นผู้ป่วย</h4>
+        <hr />
+
+        @using Microsoft.AspNet.Identity;
+        @using Microsoft.AspNet.Identity.EntityFramework;
+        @using Diabetes1.Models;
+
+
+        <dl class="dl-horizontal">
+
+
+            @{
+                if (Request.IsAuthenticated)
+                {
+                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                    var currentUser = manager.FindById(User.Identity.GetUserId());
+                    String gender;
+                    if (@currentUser.UserProfileInfo.Gender)
+                    {
+                        gender = "Male";
+                    }
+                    else {
+                        gender = "Female";
+                    }
+
+
+                    <dt> ชื่อผู้ป่วย: </dt>
+                    <dd>
+                        <p>@currentUser.UserProfileInfo.FirstName @currentUser.UserProfileInfo.LastName</p>
+                    </dd>
+                    <dt>เพศ:</dt>
+                    <dd>
+                        <p>
+                            @gender
+
+                        </p>
+                    </dd>
+                    <dt>อายุ:</dt>
+                    <dd>
+                        <p>
+                            @currentUser.UserProfileInfo.Age
+                        </p>
+                    </dd>
+                    <dt>ส่วนสูง:</dt>
+                    <dd>
+                        <p>
+                            @currentUser.UserProfileInfo.Height
+                        </p>
+                    </dd>
+                    <dt>น้ำหนัก:</dt>
+                    <dd>
+                        <p>
+                            @currentUser.UserProfileInfo.Weight
+                        </p>
+                    </dd>
+                        <dt>ที่อยู่:</dt>
+                            <dd>
+                                <p>
+                                    @currentUser.UserAddress.Address
+                                </p>
+                            </dd>
+
+                            <dt>เมือง:</dt>
+                            <dd>
+                                <p>
+                                    @currentUser.UserAddress.City
+                                </p>
+                            </dd>
+                            <dt>รหัสไปรษณีย์:</dt>
+                            <dd>
+                                <p>
+                                    @currentUser.UserAddress.ZipCode
+                                </p>
+                            </dd>
+                            <dt>Phone No.:</dt>
+                            <dd><p>0882565644 </p></dd>
+                            <dt>เพิ่มยา:</dt>
+                            <dd>
+                                <p>
+                                    <a href="http://localhost:54941/Account/DisplayProfile" class="btn btn-primary" role="button">Add your Medicine</a>
+                                </p>
+                            </dd>
+                            <dt>รายชื่อยา:</dt>
+                            <dd>
+                                @*<p>
+                                        @{
+                                            List<Medicine> userMedicine = (List<Medicine>)ViewData["Medicines"];
+                                        }
+                                        @foreach (var um in userMedicine)
+                                        {
+                                            var om = db.Medicines.Find(um.Id);
+                                            <tr>
+                                                <td>om.MedicineName</td>
+                                            </tr>
+                                        }
+
+                                    </p>*@
+                            </dd>
+                            <dt>Diabetes type:</dt>
+                            <dd><p>Diabetes type 2 </p></dd>
+                            <dt>Blood sugar:</dt>
+                            <dd> </dd>
+                            <dt>Start treatment:</dt>
+                            <dd> </dd>
+
+                            <dt>Password:</dt>
+                            <dd>
+                                [
+                                @if (Model.HasPassword)
+                                {
+                                    @Html.ActionLink("Change your password", "ChangePassword")
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Create", "SetPassword")
+                                }
+                                ]
+                            </dd>
+
+
+
+                }
+            }
+        </dl>
+
+
+
+
+        <div class="col-md-12">
+
+            <center>
+                <div class="col-md-6"><a href="http://localhost:54941/Account/HealthPlan" class="btn btn-info" role="button"><img src="~/img/health plan.png" width="200" height="200" class="img-thumbnail"></a></div>
+                <div class="col-md-6"><a href="http://localhost:54941/Account/Index" class="btn btn-info" role="button"><img src="~/img/today.png " width="200" height="200" class="img-thumbnail"></a></div>
+            </center>
+        </div>
+    </div><div class="col-md-3"></div>
+
+</div>
     <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
+       
+        @*<dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
             @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
+        </dd>*@
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
              
@@ -53,12 +189,12 @@
                 ]
             </dd>
         *@
-        <dt>Two-Factor Authentication:</dt>
+        @*<dt>Two-Factor Authentication:</dt>
         <dd>
             <p>
                 There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
+            </p>*@
             @*@if (Model.TwoFactor)
                 {
                     using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

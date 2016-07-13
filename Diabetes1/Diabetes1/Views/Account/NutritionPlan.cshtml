@@ -1,0 +1,84 @@
+﻿@using Diabetes1.Models
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Diabetes1.Models;
+@{
+    ViewBag.Title = "NutritionPlan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NutritionPlan</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-6 ">
+
+            @* Add food *@
+            <form action="/Account/AddFood" method="post">
+
+                <select name="id">
+                    <option>---Food---</option>
+                    @{
+                        List<Food> foods = (List<Food>)ViewData["Foods"];
+                        foreach (var food in foods)
+                        {
+                            <option value="@food.id_food">@food.food_name</option>
+                        }
+                    }
+                </select>
+
+                <input type="submit" value="Add Food" />
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div>
+                @* Delete food *@
+                <div class="panel panel-info">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Food Plan // วางแผนอาหาร</div>
+
+
+                    <table class="table">
+                        <tr><th>รายการอาหารที่เลือกไว้</th></tr>
+                        @{
+                            List<UserFood> userFoods = (List<UserFood>)ViewData["UserFoods"];
+                        }
+                        @foreach (var ufood in userFoods)
+                        {
+                            var ofood = db.Foods.Find(ufood.FoodId);
+
+
+                            <tr>
+                                <td>@ofood.food_name</td>
+
+
+                                <td>
+                                    <form action="/Account/DeleteFood/" method="post">
+                                        <input type="hidden" name="id" value="@ufood.Id" />
+                                        <input type="submit" value="Delete" />
+                                    </form>
+                                </td>
+
+
+
+                            </tr>
+
+
+
+
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
