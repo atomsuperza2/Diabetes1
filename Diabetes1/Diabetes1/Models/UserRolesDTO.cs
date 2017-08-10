@@ -9,9 +9,12 @@ namespace Diabetes1.Models
     public class ExpandedUserDTO
     {
         [Key]
+        [Required]
         [Display(Name = "User Name")]
         public string UserName { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Password { get; set; }
         [Display(Name = "Lockout End Date Utc")]
         public DateTime? LockoutEndDateUtc { get; set; }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections.Generic;
 
 namespace Diabetes1.Models
 {
@@ -25,22 +26,26 @@ namespace Diabetes1.Models
     public class UserProfileInfo
     {
         public int id { get; set; }
+        public int addressId { get; set; }
+        public int userGlycemicId { get; set; }
+        public int userMedicineId { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool Gender { get; set; }
         public int Age { get; set; }
-        public string DiabetesType { get; set; }
+        public bool DiabetesType { get; set; }
         public double Height { get; set; }
-        public double Weight { get; set; }
-        //public DateTime StartTreatment { get; set; }
-        public string localImage { get; set; }
-       
+        public double Weight { get; set; }  
+        public DateTime StartTreatment { get; set; }
+        //public string localImage { get; set; }
+
     }
 
     public class UserAddress
     {
         public int id { get; set; }
+        public int UserId { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public int ZipCode { get; set; }
@@ -59,13 +64,12 @@ namespace Diabetes1.Models
         }
 
         public System.Data.Entity.DbSet<UserProfileInfo> UserProfileInfo { get; set; }
+
         public System.Data.Entity.DbSet<UserAddress>UserAddress { get; set; }
 
         public System.Data.Entity.DbSet<Diabetes1.Models.Food> Foods { get; set; }
 
         public System.Data.Entity.DbSet<Diabetes1.Models.Activity> Activities { get; set; }
-
- 
 
         public System.Data.Entity.DbSet<Diabetes1.Models.UserFood> UserFoods { get; set; }
 
@@ -80,5 +84,9 @@ namespace Diabetes1.Models
         public System.Data.Entity.DbSet<Diabetes1.Models.TodayFood> TodayFoods { get; set; }
 
         public System.Data.Entity.DbSet<Diabetes1.Models.Exercises> Exercises { get; set; }
+
+        public System.Data.Entity.DbSet<Diabetes1.Models.AnalyzeGlycemic> AnalyzeGlycemics { get; set; }
+
+        public System.Data.Entity.DbSet<Diabetes1.Models.BloodSuggestion> BloodSuggestions { get; set; }
     }
 }

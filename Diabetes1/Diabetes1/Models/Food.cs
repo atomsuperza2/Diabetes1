@@ -11,6 +11,7 @@ namespace Diabetes1.Models
 
         [Key]
         public int id_food { get; set; }
+        [StringLength(45, ErrorMessage = "The username 8-20 characters.", MinimumLength = 0)]
         public string food_name { get; set; }
         public double food_Calories { get; set; }
         public double food_GlycemicIndex { get; set; }

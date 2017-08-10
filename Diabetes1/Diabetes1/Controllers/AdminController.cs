@@ -120,7 +120,7 @@ namespace Diabetes1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         #region public ActionResult Create(ExpandedUserDTO paramExpandedUserDTO)
-        public ActionResult Create(ExpandedUserDTO paramExpandedUserDTO)
+        public virtual ActionResult Create(ExpandedUserDTO paramExpandedUserDTO)
         {
             try
             {
@@ -133,14 +133,14 @@ namespace Diabetes1.Controllers
                 var UserName = paramExpandedUserDTO.UserName.Trim();
                 var Password = paramExpandedUserDTO.Password.Trim();
 
-                if (Email == "")
+                if (Email == " ")
                 {
-                    throw new Exception("No Email");
+                    throw new Exception("The Email field is required");
                 }
 
-                if (Password == "")
+                if (Password == " ")
                 {
-                    throw new Exception("No Password");
+                    throw new Exception("The Password field is required");
                 }
 
                 // UserName is LowerCase of the Email
@@ -167,7 +167,7 @@ namespace Diabetes1.Controllers
                 {
                     ViewBag.Roles = GetAllRolesAsSelectList();
                     ModelState.AddModelError(string.Empty,
-                        "Error: Failed to create the user. Check password requirements.");
+                        "Error: Failed to create the user.");
                     return View(paramExpandedUserDTO);
                 }
             }
@@ -232,7 +232,7 @@ namespace Diabetes1.Controllers
         // DELETE: /Admin/DeleteUser
         [Authorize(Roles = "Administrator")]
         #region public ActionResult DeleteUser(string UserName)
-        public ActionResult DeleteUser(string UserName)
+        public virtual ActionResult DeleteUser(string UserName)
         {
             try
             {
@@ -341,7 +341,7 @@ namespace Diabetes1.Controllers
         // DELETE: /Admin/DeleteRole?UserName="TestUser&RoleName=Administrator
         [Authorize(Roles = "Administrator")]
         #region public ActionResult DeleteRole(string UserName, string RoleName)
-        public ActionResult DeleteRole(string UserName, string RoleName)
+        public virtual ActionResult DeleteRole(string UserName, string RoleName)
         {
             try
             {
@@ -431,7 +431,7 @@ namespace Diabetes1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         #region public ActionResult AddRole(RoleDTO paramRoleDTO)
-        public ActionResult AddRole(RoleDTO paramRoleDTO)
+        public virtual ActionResult AddRole(RoleDTO paramRoleDTO)
         {
             try
             {
@@ -471,7 +471,7 @@ namespace Diabetes1.Controllers
         // DELETE: /Admin/DeleteUserRole?RoleName=TestRole
         [Authorize(Roles = "Administrator")]
         #region public ActionResult DeleteUserRole(string RoleName)
-        public ActionResult DeleteUserRole(string RoleName)
+        public virtual ActionResult DeleteUserRole(string RoleName)
         {
             try
             {

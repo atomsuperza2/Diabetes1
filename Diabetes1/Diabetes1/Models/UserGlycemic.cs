@@ -11,6 +11,7 @@ namespace Diabetes1.Models
         [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
+        [Required]
         public double Value { get; set; }
         public DateTime Date { get; set; }
     }

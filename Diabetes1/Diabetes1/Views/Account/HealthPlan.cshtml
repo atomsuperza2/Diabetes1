@@ -16,12 +16,14 @@
     <div class="row">
         <div class="col-xs-6 ">
             <dl class="dl-horizontal">
+                
                 <dt>Add your blood sugar:</dt>
                 <dd>
-                   
+                 
                         <form action="/Account/AddGlycemic" method="post">
+                           
                             <input name="value" />
-                            <input type="submit" class="btn btn-primary btn-sm"/>
+                            <input type="submit" value="Add" class="btn btn-primary btn-sm"/>
                            
                         </form>
                    
@@ -45,13 +47,13 @@
 
                 <div class="panel panel-info">
                     <!-- Default panel contents -->
-                    <div class="panel-heading"> <h4>ตารางค่าต่างๆที่เกียวกับร่างกายผู้ป่วย</h4></div>
+                    <div class="panel-heading"> <h4>BMI and BMR table</h4></div>
 
                     <!-- Table -->
                     <table class="table">
                         <tr>
                             <th>
-                                <p>BMR//ค่าแคลล่อรี่ที่เหมาะสมต่อวัน:</p>
+                                <p>BMR(Basal metabolic rate):</p>
                             </th>
                             <th>
                        
@@ -80,7 +82,7 @@
 
                 <tr>
                     <th>
-                        <p>BMณ//ค่ามวลร่างกานผู้ป่วย:</p>
+                        <p>BMI(Body mass index):</p>
                     </th>
                     <th>
 
@@ -99,13 +101,13 @@
 
         <div class="panel panel-info">
             <!-- Default panel contents -->
-            <div class="panel-heading"> <h4>ค่าสารอาหารที่จะได้รับจากการวางแผนอาหาร</h4></div>
+            <div class="panel-heading"> <h4>Value from nautrition plan</h4></div>
 
             <!-- Table -->
             <table class="table">
                 <tr>
                     <th>
-                        <p>Food Calories//ค่าแคลล่อรี่ที่ได้จากอาหาร:</p>
+                        <p>Food Calories:</p>
                     </th>
                     <th>
 
@@ -119,7 +121,7 @@
 
                 <tr>
                     <th>
-                        <p>Glycemic index//ค่าเฉลี่ยน้ำตาลที่ได้จากอาหาร:</p>
+                        <p>Glycemic index:</p>
                     </th>
                     <th>
 
@@ -150,12 +152,13 @@
 
             <div class="panel panel-info">
                 <!-- Default panel contents -->
-                <div class="panel-heading"> <h4>ตารางเปรียบเที่ยบระดับค่า BMI</h4></div>
+                <div class="panel-heading"> <h4>BMI(Body mass index) Table</h4></div>
 
                 <table class="table">
                     <tr>
                         <th>
-                            <p><img src="~/img/BMIเช็คระดับ.png" width="550" height="200" class="img-thumbnail"></p>
+                            <p>
+                                <img src="~/img/BMIเช็คระดับ3.jpg"  width="550" height="200" class="img-thumbnail"></p>
                         </th>
                       </tr>  
                     </table>
@@ -175,7 +178,7 @@
         <form action="/Account/AddFood" method="post">
 
             <select name="id" >
-                <option>---กรุณาเลือกรายการอาหารที่ท่านต้องการ---</option>
+                <option>--Please choine list of food--</option>
                 @{
                     List<Food> foods = (List<Food>)ViewData["Foods"];
                     foreach (var food in foods)
@@ -185,13 +188,18 @@
                 }
             </select>
 
-            <input type="submit" value="เพิ่มในรายการ" class="btn btn-primary"/>
+            <input type="submit" value="Add to list" class="btn btn-primary"/>
             
         </form>
     </div>
     
-    @*<div class="col-xs-6 ">*@
-
+    <div class="col-xs-6 ">
+        <div class="col-lg-12">
+            <center>
+                <p> @Html.ActionLink("Exercises suggestion", "Suggestion", null, new { @class = "btn btn-info btn-lg" })</p>
+                <p> @Html.ActionLink("Blood suggestion", "BloodSuggestion", null, new { @class = "btn btn-info btn-lg" })</p>
+            </center>
+        </div>
 
          @*Add Activity*@ 
         @*<form action="/Account/AddActivity" method="post">
@@ -222,21 +230,26 @@
     @* Delete food *@
                                   <div class="panel panel-info">
                                       <!-- Default panel contents -->
-                                      <div class="panel-heading">Food Plan // วางแผนอาหาร</div>
+                                      <div class="panel-heading">Food Plan // Nutrition plan</div>
                                       
                                       
                                       <table class="table">
-                                          <tr><th>รายการอาหารที่เลือกไว้</th></tr>
+                                          <tr><th>List of food that selected</th></tr>
                                           @{
                                               List<UserFood> userFoods = (List<UserFood>)ViewData["UserFoods"];
                                           }
                                           @foreach (var ufood in userFoods)
                                           {
-                                              var ofood = db.Foods.Find(ufood.FoodId);
 
+                                              var ofood = db.Foods.Find(ufood.FoodId);
+                                              
 
                                               <tr>
-                                                  <td>@ofood.food_name</td>
+                                                  <td>
+                                                  
+                                                  @ofood.food_name
+                                                  
+                                                  </td>
 
 
                                                   <td>

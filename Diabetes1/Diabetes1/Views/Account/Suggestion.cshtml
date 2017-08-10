@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Diabetes1.Models.Exercises>
+
+@{
+    ViewBag.Title = "Suggestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Suggestion</h2>
+<div>
+    <h3>Symptom</h3>
+    <select id="symptom_change" data-toggle="tab">
+        <option>---Please select your symptom---</option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.id">@item.symptom</option>
+        }
+    </select>
+</div>
+<!-- Tab panes -->
+<div class="tab-content">
+    @foreach (var item in Model)
+    {
+        <div role="tabpanel" class="tab-pane" id="symptom_@item.id">
+            <table style="width: 100%;">
+                <tr>
+                    <td><h2>@Html.Raw(item.symptom)</h2></td>
+                </tr>
+                <tr>
+                    <td><p>@Html.Raw(item.suggestion)</p></td>
+                </tr>
+                <tr>
+                    <td><p>@Html.Raw(item.ProperExercise)</p></td>
+                </tr>
+                <tr>
+                    <td><p>@Html.Raw(item.ExerciseInappropriate)</p></td>
+                </tr>
+                <tr>
+                    <td><p>@Html.Raw(item.StepExercise)</p></td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+<div>
+    <p> @Html.ActionLink("<<HealthPlan", "HealthPlan", null, new { @class = "btn btn-info btn-group-lg" })</p>
+</div>
+@section scripts{
+    <script>
+        $('#symptom_change').change(function () {
+            var id = this.value;
+            $('.tab-pane').hide();
+            $('#symptom_' + id).show();
+        });
+    </script>
+}
+

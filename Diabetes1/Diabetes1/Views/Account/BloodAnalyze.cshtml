@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Diabetes1.Models.AnalyzeGlycemic>
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Diabetes1.Models;
+@{
+    ViewBag.Title = "BloodAnalyze";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+}
+
+<h2>BloodAnalyze</h2>
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Diabetes1.Models;
+@{
+    if (Request.IsAuthenticated)
+    {
+        var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+        var currentUser = manager.FindById(User.Identity.GetUserId());
+        //var analyze = new AnalyzeGlycemic();
+        //var id = analyze.id;
+        //var name = analyze.name;
+        //var cause = analyze.cause;
+        //var Takcare = analyze.TakeCare;
+      
+                            <dt>ระดับน้ำตาลในเลือดผู้ป่วย:</dt>
+                            <dd>
+                                <p>
+                                    @{
+                                        int id1 = currentUser.UserProfileInfo.id;
+                                        List<UserGlycemic> userGlycemic = (List<UserGlycemic>)
+                                        db.UserGlycemics.Where(m => m.UserId == id1).OrderByDescending(d => d.Date).ToList();
+                                        List<AnalyzeGlycemic> analyze = (List<AnalyzeGlycemic>)db.AnalyzeGlycemics.Select(a => a.id);
+                                    }
+                                    
+                                    
+
+                                    @foreach (UserGlycemic ug in userGlycemic)
+                                    {
+                                        if (@ug.Value <= 60)
+                                        {
+                                            analyze.OrderBy(a => a.id).ToList();
+
+                                        }else if (@ug.Value <= 100 && @ug.Value > 60)
+                                        {
+
+                                        }
+                                        else if (@ug.Value <= 125 && @ug.Value > 100)
+                                        {
+
+
+                                        }
+                                        else if (@ug.Value <= 130 && @ug.Value > 125)
+                                        {
+
+                                        }
+                                        else if (@ug.Value <= 200 && @ug.Value > 130)
+                                        {
+
+                                        }
+                                        else if (@ug.Value > 200)
+                                        {
+
+                                        }
+
+
+                                    }
+                           
+                             
+
+                                </p>
+                            </dd>
+                           
+
+                               
+
+
+
+      }
+}
+
+
+

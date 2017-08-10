@@ -19,7 +19,7 @@
 <div class="row"><div class="col-md-3"></div>
     <div class="col-md-6">
 
-        <h4>ข้อมูลเบื้องต้นผู้ป่วย</h4>
+        <h4>Patient Profile</h4>
         <hr />
 
         @using Microsoft.AspNet.Identity;
@@ -44,50 +44,66 @@
                         gender = "Female";
                     }
 
+                    String diabetestype;
+                    if (@currentUser.UserProfileInfo.DiabetesType)
+                    {
+                        diabetestype = "Diabetes type 1";
+                    }
+                    else {
+                        diabetestype = "Diabetes type 2";
+                    }
 
-                    <dt> ชื่อผู้ป่วย: </dt>
+                    <dt> Name: </dt>
                     <dd>
                         <p>@currentUser.UserProfileInfo.FirstName @currentUser.UserProfileInfo.LastName</p>
+                        <p> @Html.ActionLink("Edit user info", "EditUserProfile", "Account", null, new { @class = "btn btn-info " })</p>
                     </dd>
-                    <dt>เพศ:</dt>
+                    <dt>Gender:</dt>
                     <dd>
                         <p>
                             @gender
 
                         </p>
                     </dd>
-                    <dt>อายุ:</dt>
+                    <dt>Age:</dt>
                     <dd>
                         <p>
                             @currentUser.UserProfileInfo.Age
                         </p>
                     </dd>
-                    <dt>ส่วนสูง:</dt>
+                    <dt>Height:</dt>
                     <dd>
                         <p>
                             @currentUser.UserProfileInfo.Height
                         </p>
                     </dd>
-                    <dt>น้ำหนัก:</dt>
+                    <dt>Weight:</dt>
                     <dd>
                         <p>
                             @currentUser.UserProfileInfo.Weight
                         </p>
                     </dd>
-                        <dt>ที่อยู่:</dt>
+                    <dt>Diabetes Type:</dt>
+                                        <dd>
+                                            <p>
+                                                @diabetestype
+
+                                            </p>
+                                        </dd>
+                        <dt>Address:</dt>
                             <dd>
                                 <p>
                                     @currentUser.UserAddress.Address
                                 </p>
                             </dd>
 
-                            <dt>เมือง:</dt>
+                            <dt>City:</dt>
                             <dd>
                                 <p>
                                     @currentUser.UserAddress.City
                                 </p>
                             </dd>
-                            <dt>รหัสไปรษณีย์:</dt>
+                            <dt>Zip code:</dt>
                             <dd>
                                 <p>
                                     @currentUser.UserAddress.ZipCode
@@ -95,34 +111,52 @@
                             </dd>
                             <dt>Phone No.:</dt>
                             <dd><p>0882565644 </p></dd>
-                            <dt>เพิ่มยา:</dt>
+                            <dt>Add medicine:</dt>
                             <dd>
-                                <p>
-                                    <a href="http://localhost:54941/Account/DisplayProfile" class="btn btn-primary" role="button">Add your Medicine</a>
-                                </p>
+                                <p> @Html.ActionLink("Add list of medicine", "DisplayProfile", "Account", null, new { @class = "btn btn-info " })</p>
                             </dd>
-                            <dt>รายชื่อยา:</dt>
+                            <dt>List of medicine:</dt>
                             <dd>
-                                @*<p>
-                                        @{
-                                            List<Medicine> userMedicine = (List<Medicine>)ViewData["Medicines"];
-                                        }
-                                        @foreach (var um in userMedicine)
-                                        {
-                                            var om = db.Medicines.Find(um.Id);
-                                            <tr>
-                                                <td>om.MedicineName</td>
-                                            </tr>
-                                        }
+                                <table>
+                              @{
+                             int id = currentUser.UserProfileInfo.id;
+                             List<Medicine> userMedicine = (List<Medicine>)db.Medicines.Where(m => m.UserId == id).ToList();
+                                 }
+                                  @foreach (Medicine um in userMedicine)
+                                  {
+                                       //var om = db.Medicines.Find(um.Id);
+                                      <tr>
+                                      <td>- @um.MedicineName</td>
 
-                                    </p>*@
+                                      </tr>
+                                 }
+                            </table>
+                            
                             </dd>
-                            <dt>Diabetes type:</dt>
-                            <dd><p>Diabetes type 2 </p></dd>
-                            <dt>Blood sugar:</dt>
-                            <dd> </dd>
+                          
+                            <dt>Blood sugar value:</dt>
+                                <dd>
+                                  <p>
+                                        @{
+                                            int id1 = currentUser.UserProfileInfo.id;
+                                            List<UserGlycemic> userGlycemic = (List<UserGlycemic>)
+                                db.UserGlycemics.Where(m => m.UserId == id1).OrderByDescending(d => d.Date).ToList();
+                                        }
+                                        @foreach (UserGlycemic ug in userGlycemic)
+                                        {
+                                            
+                                             @ug.Value
+                                            break;
+                                        }
+                                    </p>
+
+                                </dd>
+
+
+                            
+                            
                             <dt>Start treatment:</dt>
-                            <dd> </dd>
+                            <dd> @currentUser.UserProfileInfo.StartTreatment</dd>
 
                             <dt>Password:</dt>
                             <dd>

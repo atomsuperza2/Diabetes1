@@ -13,7 +13,7 @@ namespace Diabetes1.Controllers
     public class ExercisesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+      
         // GET: Exercises
         public ActionResult Index()
         {

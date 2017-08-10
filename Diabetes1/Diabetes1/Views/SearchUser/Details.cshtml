@@ -1,0 +1,90 @@
+﻿@model Diabetes1.Models.ViewUserDetail
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Patient Detail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userInfo.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userInfo.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userInfo.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userInfo.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userInfo.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userInfo.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userInfo.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userInfo.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userInfo.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userInfo.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userGlycemic.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userGlycemic.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userGlycemic.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userGlycemic.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userAddress.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userAddress.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.userAddress.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userAddress.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.userAddress.ZipCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userAddress.ZipCode)
+        </dd>
+    </dl>
+</div>

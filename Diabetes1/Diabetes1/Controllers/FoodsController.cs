@@ -46,7 +46,7 @@ namespace Diabetes1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_food,food_name,food_Calories,food_GlycemicIndex")] Food food)
+        public virtual ActionResult Create([Bind(Include = "id_food,food_name,food_Calories,food_GlycemicIndex")] Food food)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Diabetes1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_food,food_name,food_Calories,food_GlycemicIndex")] Food food)
+        public virtual ActionResult Edit([Bind(Include = "id_food,food_name,food_Calories,food_GlycemicIndex")] Food food)
         {
             if (ModelState.IsValid)
             {

@@ -1,0 +1,55 @@
+﻿@model IEnumerable < Diabetes1.Models.BloodSuggestion>
+@{
+    ViewBag.Title = "BloodSuggestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>BloodSuggestion</h2>
+<div>
+    <h3>The range of blood glucose levels</h3>
+    <select id="symptom_change" data-toggle="tab">
+        <option>---range of blood glucose levels---</option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.id">@item.Bloodvalue</option>
+        }
+    </select>
+</div>
+
+<div class="tab-content">
+    @foreach (var item in Model)
+    {
+        <div role="tabpanel" class="tab-pane" id="symptom_@item.id">
+            <table style="width: 100%;">
+                <tr>
+                    <td><h2>@Html.Raw(item.Bloodvalue)</h2></td>
+                </tr>
+                <tr>
+                    <td><p>@Html.Raw(item.Discription)</p></td>
+                </tr>
+                <tr>
+                    <td><p>@Html.Raw(item.Cause)</p></td>
+                </tr>
+                <tr>
+                    <td><p>@Html.Raw(item.Management)</p></td>
+                </tr>
+               
+            </table>
+        </div>
+    }
+</div>
+<div>
+    <p> @Html.ActionLink("<<HealthPlan", "HealthPlan", null, new { @class = "btn btn-info btn-group-lg" })</p>
+</div>
+@section scripts{
+    <script>
+        $('#symptom_change').change(function () {
+            var id = this.value;
+            $('.tab-pane').hide();
+            $('#symptom_' + id).show();
+        });
+    </script>
+}
+
+
+

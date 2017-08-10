@@ -21,9 +21,10 @@ namespace Diabetes1.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        public ApplicationDbContext db = new ApplicationDbContext();
+        public ApplicationDbContext db;
         public AccountController()
         {
+            this.db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -61,6 +62,10 @@ namespace Diabetes1.Controllers
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var currentUser = manager.FindById(User.Identity.GetUserId());
             var profile = db.UserProfileInfo.Where(u => u.UserName == currentUser.UserName).FirstOrDefault();
+            if (profile == null)
+            {
+                return Redirect("/");
+            }
             ViewData["Medicines"] = db.Medicines.Where(m => m.UserId == profile.id).ToList();
             ViewData["Food"] = db.Foods.ToList();
             ViewData["UserFood"] = db.UserFoods.Join(db.Foods, t1 => t1.FoodId, t2 => t2.id_food, (t1, t2) => new { UserFood = t1, Food = t2 }).Select(s => new LFood { food_name = s.Food.food_name, id_food = s.Food.id_food }).ToList();
@@ -73,36 +78,39 @@ namespace Diabetes1.Controllers
             double sumActs = 0;
             int today = 0;
 
-            var acts = db.TodayActivities.Where(a => a.UserId == profile.id).OrderBy(a => a.Id).ToList();
-            List<double> graphAct = new List<double>();
-            foreach (var act in acts)
-            {
-                Activity temp = db.Activities.Find(act.ActivityId);
-                if (today != act.Date.Day)
-                {
-                    if (sumActs != 0) {
-                        graphAct.Add(sumActs);
-                        sumActs = 0;
-                    }
-                    if (sumActs == 0)
-                    {
-                        today = act.Date.Day;
-                    }
-                    sumActs += temp.activity_calories;
-                }
-                else {
-                    today = act.Date.Day;
-                    sumActs += temp.activity_calories;
-                }
-                   
-            }
-            graphAct.Add(sumActs);
-            ViewData["GraphActivity"] = graphAct;
+            //var acts = db.TodayActivities.Where(a => a.UserId == profile.id).OrderBy(a => a.Id).ToList();
+            //List<double> graphAct = new List<double>();
+            //foreach (var act in acts)
+            //{
+            //    Activity temp = db.Activities.Find(act.ActivityId);
+            //    if (today != act.Date.Day)
+            //    {
+            //        if (sumActs != 0)
+            //        {
+            //            graphAct.Add(sumActs);
+            //            sumActs = 0;
+            //        }
+            //        if (sumActs == 0)
+            //        {
+            //            today = act.Date.Day;
+            //        }
+            //        sumActs += temp.activity_calories;
+            //    }
+            //    else {
+            //        today = act.Date.Day;
+            //        sumActs += temp.activity_calories;
+            //    }
+
+            //}
+            //graphAct.Add(sumActs);
+            //ViewData["GraphActivity"] = graphAct;
 
             sumActs = 0;
             today = 0;
+            double sumGly = 0;
             var foods = db.TodayFoods.Where(a => a.UserId == profile.id).OrderBy(a => a.Id).ToList();
             List<double> graphFood = new List<double>();
+            List<double> graphGlycemic = new List<double>();
             foreach (var food in foods)
             {
                 Food temp = db.Foods.Find(food.FoodId);
@@ -111,54 +119,60 @@ namespace Diabetes1.Controllers
                     if (sumActs != 0)
                     {
                         graphFood.Add(sumActs);
-                        sumActs = 0;
-                    }
-                    if (sumActs == 0) {
-                        today = food.Date.Day;
-                    }
-                    sumActs += temp.food_Calories;
-                }
-                else {
-                    today = food.Date.Day;
-                    sumActs += temp.food_Calories;
-                }
-            }
-            graphFood.Add(sumActs);
-            ViewData["GraphFood"] = graphFood;
-
-            sumActs = 0;
-            today = 0;
-            var glycemics = db.UserGlycemics.Where(a => a.UserId == profile.id).OrderBy(a => a.Id).ToList();
-            List<double> graphGlycemic = new List<double>();
-            foreach (var glycemic in glycemics)
-            {
-                if (today != glycemic.Date.Day)
-                {
-                    if (sumActs != 0)
-                    {
-                        graphGlycemic.Add(sumActs);
+                        graphGlycemic.Add(sumGly);
                         sumActs = 0;
                     }
                     if (sumActs == 0)
                     {
-                        today = glycemic.Date.Day;
+                        today = food.Date.Day;
                     }
-                    sumActs += glycemic.Value;
+                    sumActs += temp.food_Calories;
+                    sumGly += temp.food_GlycemicIndex;
                 }
                 else {
-                    today = glycemic.Date.Day;
-                    sumActs += glycemic.Value;
+                    today = food.Date.Day;
+                    sumActs += temp.food_Calories;
+                    sumGly += temp.food_GlycemicIndex;
                 }
             }
-            graphGlycemic.Add(sumActs);
+            graphFood.Add(sumActs);
+            graphGlycemic.Add(sumGly);
+            ViewData["GraphFood"] = graphFood;
             ViewData["GraphGlycemic"] = graphGlycemic;
+
+            //sumActs = 0;
+            //today = 0;
+            //var glycemics = db.UserGlycemics.Where(a => a.UserId == profile.id).OrderBy(a => a.Id).ToList();
+            //List<double> graphGlycemic = new List<double>();
+            //foreach (var glycemic in glycemics)
+            //{
+            //    if (today != glycemic.Date.Day)
+            //    {
+            //        if (sumActs != 0)
+            //        {
+            //            graphGlycemic.Add(sumActs);
+            //            sumActs = 0;
+            //        }
+            //        if (sumActs == 0)
+            //        {
+            //            today = glycemic.Date.Day;
+            //        }
+            //        sumActs += glycemic.Value;
+            //    }
+            //    else {
+            //        today = glycemic.Date.Day;
+            //        sumActs += glycemic.Value;
+            //    }
+            //}
+            //graphGlycemic.Add(sumActs);
+            //ViewData["GraphGlycemic"] = graphGlycemic;
 
             List<DateTime> dates = db.TodayActivities.Where(a => a.UserId == profile.id).OrderBy(a => a.Id).Select(a => a.Date).Distinct().ToList();
             ViewData["Date"] = dates;
             return View();
         }
         [HttpPost]
-        public ActionResult AddTodayFood(int value = 0)
+        public virtual ActionResult AddTodayFood(int value = 0)
         {
             if (value != 0)
             {
@@ -166,15 +180,69 @@ namespace Diabetes1.Controllers
                 var currentUser = manager.FindById(User.Identity.GetUserId());
                 var profile = db.UserProfileInfo.Where(u => u.UserName == currentUser.UserName).FirstOrDefault();
 
+                addTodayfood(profile, value);
+            }
+            return Redirect("/Account/");
+        }
+
+        public virtual TodayFood addTodayfood(UserProfileInfo profile, int value = 0)
+        {
+            try
+            {
                 TodayFood food = new TodayFood();
                 food.UserId = profile.id;
                 food.FoodId = value;
                 food.Date = DateTime.Now;
                 db.TodayFoods.Add(food);
                 db.SaveChanges();
+                return food;
+            }
+            catch (Exception e) {
+                return null;
+            }
+        }
+
+
+        //[HttpPost]
+        public virtual ActionResult RemoveTodayFood(int value = 0)
+        {
+            if (value != 0)
+            {
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var currentUser = manager.FindById(User.Identity.GetUserId());
+                var profile = db.UserProfileInfo.Where(u => u.UserName == currentUser.UserName).FirstOrDefault();
+
+                removeTodayFoodData(value);
+                //try {
+
+                //    TodayFood food = db.TodayFoods.Find(value);
+                //    db.TodayFoods.Remove(food);
+                //    db.SaveChanges();
+                    
+                //}catch (Exception e)
+                //{
+                //    return null;
+                //}
             }
             return Redirect("/Account/");
         }
+
+        public virtual TodayFood removeTodayFoodData (int value = 0)
+        {
+            try
+            {
+
+                TodayFood food = db.TodayFoods.Find(value);
+                db.TodayFoods.Remove(food);
+                db.SaveChanges();
+                return food;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+    
         [HttpPost]
         public ActionResult AddTodayActivity(int value = 0)
         {
@@ -291,7 +359,7 @@ namespace Diabetes1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddGlycemic(int value = 0)
+        public virtual ActionResult AddGlycemic(int value = 0)
         {
             if (value != 0)
             {
@@ -299,18 +367,35 @@ namespace Diabetes1.Controllers
                 var currentUser = manager.FindById(User.Identity.GetUserId());
                 var profile = db.UserProfileInfo.Where(u => u.UserName == currentUser.UserName).FirstOrDefault();
 
+                addUserGlycemic(profile, value);
+                //UserGlycemic glycemic = new UserGlycemic();
+                //glycemic.UserId = profile.id;
+                //glycemic.Value = value;
+                //glycemic.Date = DateTime.Now;
+                //db.UserGlycemics.Add(glycemic);
+                //db.SaveChanges();
+
+            }
+            return Redirect("/Account/HealthPlan/");
+        }
+        public virtual UserGlycemic addUserGlycemic (UserProfileInfo profile, int value = 0)
+        {
+            try {
                 UserGlycemic glycemic = new UserGlycemic();
                 glycemic.UserId = profile.id;
                 glycemic.Value = value;
                 glycemic.Date = DateTime.Now;
                 db.UserGlycemics.Add(glycemic);
                 db.SaveChanges();
-
+                return glycemic;
             }
-            return Redirect("/Account/HealthPlan/");
-        }
+            catch (Exception e)
+            {
+                return null;
+            }
+            }
         [HttpPost]
-        public ActionResult AddFood(int id = 0)
+        public virtual ActionResult AddFood(int id = 0)
         {
             if (id != 0)
             {
@@ -318,14 +403,29 @@ namespace Diabetes1.Controllers
                 var currentUser = manager.FindById(User.Identity.GetUserId());
                 var profile = db.UserProfileInfo.Where(u => u.UserName == currentUser.UserName).FirstOrDefault();
 
-                UserFood food = new UserFood();
-                food.UserId = profile.id;
-                food.FoodId = id;
-                db.UserFoods.Add(food);
-                db.SaveChanges();
+                addUSerFood(profile, id);
+
+                //UserFood food = new UserFood();
+                //food.UserId = profile.id;
+                //food.FoodId = id;
+                //db.UserFoods.Add(food);
+                //db.SaveChanges();
             }
             return Redirect("/Account/HealthPlan/");
         }
+        public virtual UserFood addUSerFood(UserProfileInfo profile, int id = 0)
+        {
+            try{ 
+            UserFood food = new UserFood();
+            food.UserId = profile.id;
+            food.FoodId = id;
+            db.UserFoods.Add(food);
+            db.SaveChanges();
+                return food;
+        }catch (Exception e)
+            { return null; }
+        }
+
         [HttpPost]
         public ActionResult AddActivity(int id = 0)
         {
@@ -344,16 +444,31 @@ namespace Diabetes1.Controllers
             return Redirect("/Account/HealthPlan/");
         }
         [HttpPost]
-        public ActionResult DeleteFood(int id = 0)
+        public virtual ActionResult DeleteFood(int id = 0)
         {
             if (id != 0)
+            {
+                deleteFoodData(id);
+                //UserFood food = db.UserFoods.Find(id);
+                //db.UserFoods.Remove(food);
+                //db.SaveChanges();
+            }
+            return Redirect("/Account/HealthPlan/");
+        }
+        public virtual UserFood deleteFoodData(int id = 0)
+        {
+            try
             {
                 UserFood food = db.UserFoods.Find(id);
                 db.UserFoods.Remove(food);
                 db.SaveChanges();
+                return food;
             }
-            return Redirect("/Account/HealthPlan/");
-        }
+            catch(Exception e)
+            {
+                return null;
+            }
+        } 
         [HttpPost]
         public ActionResult DeleteActivity(int id = 0)
         {
@@ -370,7 +485,7 @@ namespace Diabetes1.Controllers
         // part of medicine
 
         [HttpPost]
-        public ActionResult AddMedicine(string name = null)
+        public virtual ActionResult AddMedicine(string name = null)
         {
             if (name != null)
             {
@@ -378,28 +493,62 @@ namespace Diabetes1.Controllers
                 var currentUser = manager.FindById(User.Identity.GetUserId());
                 var profile = db.UserProfileInfo.Where(u => u.UserName == currentUser.UserName).FirstOrDefault();
 
-                Medicine medicine = new Medicine();
-                medicine.UserId = profile.id;
-                medicine.MedicineName = name;
+                addMedicineData(profile, name);
+                //Medicine medicine = new Medicine();
+                //medicine.UserId = profile.id;
+                //medicine.MedicineName = name;
 
-                db.Medicines.Add(medicine);
-                db.SaveChanges();
+                //db.Medicines.Add(medicine);
+                //db.SaveChanges();
             }
             return Redirect("/Account/DisplayProfile/");
         }
+        public virtual Medicine addMedicineData (UserProfileInfo profile , string name = null)
+        {
+            try
+            {
+                Medicine medicine = new Medicine();
+                medicine.UserId = profile.id;
+                medicine.MedicineName = name;
+               
+                db.Medicines.Add(medicine);
+                db.SaveChanges();
+                
+                return medicine;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
         [HttpPost]
-        public ActionResult DeleteMedicine(int id = 0)
+        public virtual ActionResult DeleteMedicine(int id = 0)
         {
             if (id != 0)
+            {
+                deleteMedicineData(id);
+                //Medicine medicine = db.Medicines.Find(id);
+                //db.Medicines.Remove(medicine);
+                //db.SaveChanges();
+            }
+            return Redirect("/Account/DisplayProfile/");
+        }
+        public virtual Medicine deleteMedicineData(int id = 0)
+        {
+            try
             {
                 Medicine medicine = db.Medicines.Find(id);
                 db.Medicines.Remove(medicine);
                 db.SaveChanges();
+                return medicine;
             }
-            return Redirect("/Account/DisplayProfile/");
+            catch(Exception e)
+            {
+                return null;
+            }
         }
         [HttpPost]
-        public ActionResult UpdateMedicine(int[] medicine = null)
+        public virtual ActionResult UpdateMedicine(int[] medicine = null)
         {
             if (medicine != null)
             {
@@ -442,37 +591,49 @@ namespace Diabetes1.Controllers
                     return View(model);
             }
         }
-        
+
         //// GET: /Account/EditUserProfile
-        //public ActionResult EditUserProfile()
-        //{
-        //    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-        //    var currentUser = manager.FindById(User.Identity.GetUserId());
-        //    ViewBag.FirstName = currentUser.UserProfileInfo.FirstName;
-        //    ViewBag.LastName = currentUser.UserProfileInfo.LastName;
-
-        //    return View();
-        //}
+        public ActionResult EditUserProfile()
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            ViewBag.FirstName = currentUser.UserProfileInfo.FirstName;
+            ViewBag.LastName = currentUser.UserProfileInfo.LastName;
+            ViewBag.Gender = currentUser.UserProfileInfo.Gender;
+            ViewBag.Age = currentUser.UserProfileInfo.Age;
+            ViewBag.Height = currentUser.UserProfileInfo.Height;
+            ViewBag.Weight = currentUser.UserProfileInfo.Weight;
+            //ViewBag.Address = currentUser.UserAddress.Address;
+            //ViewBag.City = currentUser.UserAddress.City;
+            //ViewBag.Zipcode = currentUser.UserAddress.ZipCode;
+            return View(currentUser.UserProfileInfo);
+        }
         //// Post: /Account/EditUserProfile
-        //[HttpPost]
-        //public ActionResult EditUserProfile(UserProfileInfo userprofile)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-        //        var manager = new UserManager<ApplicationUser>(userStore);
-        //        var user = manager.FindById(User.Identity.GetUserId());
+        [HttpPost]
+        public ActionResult EditUserProfile(UserProfileInfo userprofile, UserAddress useraddress)
+        {
+            if (ModelState.IsValid)
+            {
+                var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                var manager = new UserManager<ApplicationUser>(userStore);
+                var user = manager.FindById(User.Identity.GetUserId());
 
+                user.UserProfileInfo.FirstName = userprofile.FirstName;
+                user.UserProfileInfo.LastName = userprofile.LastName;
+                user.UserProfileInfo.Gender = userprofile.Gender;
+                user.UserProfileInfo.Age = userprofile.Age;
+                user.UserProfileInfo.Height = userprofile.Height;
+                user.UserProfileInfo.Weight = userprofile.Weight;
+                //user.UserAddress.Address = useraddress.Address;
+                //user.UserAddress.City = useraddress.City;
+                //user.UserAddress.ZipCode = useraddress.ZipCode;
+                    manager.Update(user);
 
-        //        ViewBag.FirstName = user.UserProfileInfo.FirstName;
-        //        ViewBag.LastName = user.UserProfileInfo.LastName;
-        //        manager.Update(user);
+                return Redirect("/Manage/Index"); // or whatever
+            }
 
-        //        return RedirectToAction("Index", "Home"); // or whatever
-        //    }
-
-        //    return View(userprofile);
-        //}
+            return View(userprofile);
+        }
 
         //
         // GET: /Account/VerifyCode
@@ -517,6 +678,9 @@ namespace Diabetes1.Controllers
             }
         }
 
+      
+       
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -537,7 +701,15 @@ namespace Diabetes1.Controllers
                 var user = new ApplicationUser
                 {
                     UserName = model.UserName,
-                    Email = model.Email,
+                    Email = model.Email,    
+
+                    UserAddress = new UserAddress
+                    {
+                        Address = model.Address,
+                        City = model.City,
+                        ZipCode = model.ZipCode
+                    },
+
                     UserProfileInfo = new UserProfileInfo
                     {
                         UserName = model.UserName,
@@ -547,22 +719,25 @@ namespace Diabetes1.Controllers
                         Age = model.Age,
                         Height = model.Height,
                         Weight = model.Weight,
-                        //StartTreatment=model.StartTreatment
+                        DiabetesType = model.DiabetesType,
+                        StartTreatment = model.StartTreatment
                     },
-
-                    UserAddress = new UserAddress
-                    {
-                        Address = model.Address,
-                        City = model.City,
-                        ZipCode = model.ZipCode
-                    }
-
-
-
                 };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    user.UserProfileInfo.addressId = user.UserAddress.id;
+                    user.UserAddress.UserId = user.UserProfileInfo.id;
+                    var save = await UserManager.UpdateAsync(user);
+
+                    // However, it always succeeds inspite of not updating the database
+                    if (!save.Succeeded)
+                    {
+                        AddErrors(save);
+                    }
+                    db.SaveChanges();
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -811,6 +986,10 @@ namespace Diabetes1.Controllers
             return View();
         }
 
+
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -939,5 +1118,18 @@ namespace Diabetes1.Controllers
             }
         }
         #endregion
+        public ActionResult Suggestion()
+        {
+            return View(db.Exercises.ToList());
+        }
+        public ActionResult BloodSuggestion()
+        {
+            return View(db.BloodSuggestions.ToList());
+        }
+
+        public ActionResult BloodAnalyze()
+        {
+            return View(db.AnalyzeGlycemics.ToList());
+        }
     }
 }

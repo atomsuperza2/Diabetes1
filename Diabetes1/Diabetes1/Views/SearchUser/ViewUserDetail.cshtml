@@ -1,0 +1,51 @@
+﻿@model Diabetes1.Models.ViewUserDetail
+
+@{
+    ViewBag.Title = "user detail";
+}
+
+<h2>User detail</h2>
+<table class="table">
+    <tr>
+        
+        <th>First Name</th>
+       
+        <th>Last Name</th>
+        
+        <th>Address</th>
+
+        
+    </tr>
+
+    @foreach (var UserInfo in Model.userInfo)
+    {
+      
+                <tr>
+                    <td>@UserInfo.FirstName</td>
+                    <td>@UserInfo.LastName</td>
+                </tr>
+          
+    }
+
+ 
+
+    @foreach (var UA in Model.userAddress)
+    {
+   
+          
+                <tr>
+                    <td>@UA.Address</td>
+                </tr>
+         
+    }
+
+    @foreach (var UG in Model.userGlycemic)
+    {
+
+
+        <tr>
+            <td>@UG.Value</td>
+        </tr>
+
+    }
+</table>

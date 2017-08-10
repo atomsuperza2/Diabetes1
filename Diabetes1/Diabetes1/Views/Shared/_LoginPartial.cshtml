@@ -12,6 +12,16 @@
                         <li>
                             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Home", "Admin", routeValues: null, htmlAttributes: new { title = "Home" })</li>
           }
+          else if (User.IsInRole("Nutritionists"))
+          {
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Index" })
+        </li>}
+          else if (User.IsInRole("Nurse")|| User.IsInRole("Doctor"))
+          {
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Index" })
+            </li>}
           else {
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
@@ -24,7 +34,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
         <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

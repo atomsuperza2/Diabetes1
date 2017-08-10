@@ -1,0 +1,57 @@
+﻿@model Diabetes1.Models.BloodSuggestion
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>BloodSuggestion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Bloodvalue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bloodvalue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cause)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cause)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Management)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Management)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

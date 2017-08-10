@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Diabetes1.Models.Medicine>
+
+@{
+    ViewBag.Title = "UserMedicine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UserMedicine</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <h3>
+        <a href="/TestSearch/Index">Back to list of patient page</a>
+    </h3>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicineName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Take)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Today)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedicineName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Take)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Today)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>*@
+        </tr>
+    }
+
+</table>

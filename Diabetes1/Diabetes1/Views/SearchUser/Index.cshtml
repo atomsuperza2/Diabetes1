@@ -1,0 +1,98 @@
+﻿@model PagedList.IPagedList<Diabetes1.Models.ViewUserDetail>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index","SearchUser",FormMethod.Get))
+{
+    <p>
+        Find by first name: @Html.TextBox("searchString", ViewBag.FilterValue as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            First name
+        </th>
+        <th>
+            Last name
+        </th>
+        <th>
+            Age
+        </th>
+        <th>
+            Hight
+        </th>
+        <th>
+            Wight
+        </th>
+        <th>
+            Blood sugar
+        </th>
+        <th>
+            Medicine
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            ZipCode
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userInfo.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userInfo.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userInfo.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userInfo.Height)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userInfo.Weight)
+            </td>
+            <td>
+                <a href="/SearchUser/ViewGlycemic?id=@item.userInfo.id">View Glycemics</a>
+            </td>
+            <td>
+                <a href="/SearchUser/UserMedicine?id=@item.userInfo.id">Medicine</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userAddress.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userAddress.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userAddress.ZipCode)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id_food }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id_food }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id_food })
+            </td>*@
+        </tr>
+    }
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, Page_No => Url.Action("Index",
+    new { Page_No, Sorting_Order = ViewBag.CurrentSortOrder, Filter_Value = ViewBag.FilterValue })) 

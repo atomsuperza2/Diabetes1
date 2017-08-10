@@ -10,6 +10,7 @@
 
     List<TodayActivity> todayActivities = (List<TodayActivity>)ViewData["TodayActivity"];
     List<TodayFood> todayFoods = (List<TodayFood>)ViewData["TodayFood"];
+    double glycemic = 0;
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 <div class="container">
@@ -56,6 +57,8 @@
                         <tr>
                             <th>Name</th>
                             <th>Calories</th>
+                            <th>Glycemic</th>
+                            <th></th>
                         </tr>
 
                         @if (todayFoods != null)
@@ -63,69 +66,74 @@
                             foreach (var v in todayFoods)
                             {
                                 Food food = db.Foods.Find(v.FoodId);
-                                <tr><td>@food.food_name</td><td>@food.food_Calories</td></tr>
+                                glycemic += food.food_GlycemicIndex;
+                                <tr><td>@food.food_name</td><td>@food.food_Calories</td><td>@food.food_GlycemicIndex</td><td><a href="/Account/RemoveTodayFood?value=@v.Id">Remove</a></td></tr>
                             }
                         }
                     </table>
                 </div>
             </div>
-            <h4>Activity Today</h4>
+            <h4>Graph Food calories and Food Glycemic</h4>
             <div class="row">
                 @*<div class="col-md-6">
-                    <strong>All Activity</strong>
-                    <form method="post" action="/Account/AddTodayActivity">
-                        <select name="value">
-                            <option>--- Select ---</option>
-                            @if (activities != null)
-                            {
-                                foreach (var v in activities)
+                        <strong>All Activity</strong>
+                        <form method="post" action="/Account/AddTodayActivity">
+                            <select name="value">
+                                <option>--- Select ---</option>
+                                @if (activities != null)
                                 {
-                                    <option value="@v.id_activity">@v.activity_name</option>
+                                    foreach (var v in activities)
+                                    {
+                                        <option value="@v.id_activity">@v.activity_name</option>
+                                    }
                                 }
-                            }
-                        </select>
-                        <input type="submit" value="Add" />
-                    </form>
-                </div>*@
+                            </select>
+                            <input type="submit" value="Add" />
+                        </form>
+                    </div>*@
                 @*<div class="col-md-6">
-                    <strong>Health Plan</strong>
-                    <form method="post" action="/Account/AddTodayActivity">
-                        <select name="value">
-                            <option>--- Select ---</option>
-                            @if (userActivity != null)
-                            {
-                                foreach (var v in userActivity)
+                        <strong>Health Plan</strong>
+                        <form method="post" action="/Account/AddTodayActivity">
+                            <select name="value">
+                                <option>--- Select ---</option>
+                                @if (userActivity != null)
                                 {
-                                    <option value="@v.id_activity">@v.activity_name</option>
+                                    foreach (var v in userActivity)
+                                    {
+                                        <option value="@v.id_activity">@v.activity_name</option>
+                                    }
                                 }
-                            }
-                        </select>
-                        <input type="submit" value="Add" />
-                    </form>
-                </div>*@
+                            </select>
+                            <input type="submit" value="Add" />
+                        </form>
+                    </div>*@
             </div>
             <div class="row">
                 @*<div class="col-md-12">
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Calories</th>
-                        </tr>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Calories</th>
+                            </tr>
 
-                        @if (todayActivities != null)
-                        {
-                            foreach (var v in todayActivities)
+                            @if (todayActivities != null)
                             {
-                                Activity activity = db.Activities.Find(v.ActivityId);
-                                <tr><td>@activity.activity_name</td><td>@activity.activity_calories</td></tr>
+                                foreach (var v in todayActivities)
+                                {
+                                    Activity activity = db.Activities.Find(v.ActivityId);
+                                    <tr><td>@activity.activity_name</td><td>@activity.activity_calories</td></tr>
+                                }
                             }
-                        }
-                    </table>
-                </div>*@
+                        </table>
+                    </div>*@
             </div>
             <div class="row">
                 <canvas id="myChart" width="700" height="400"></canvas>
-            </div>
+                <p>
+                    calories&nbsp;<img src="~/img/Carolist.jpg" />&nbsp;&nbsp;&nbsp;
+                    glycemic index&nbsp;<img src="~/img/Glycemic.jpg" />
+                <p>
+</div>
         </div>
         <div class="col-md-4">
             <h3>Medicine Today</h3>
@@ -143,17 +151,30 @@
                                 var om = db.Medicines.Find(um.Id);
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="medicine[]" value="@um.Id" @if (@um.Take == 1) { if (um.Today.Day == DateTime.Now.Day) { @Html.Raw("checked")          } else { status = 2; } } /> @um.MedicineName
+                                        <input type="checkbox" name="medicine[]" value="@um.Id" @if (@um.Take == 1) { if (um.Today.Day == DateTime.Now.Day) { @Html.Raw("checked")            } else { status = 2; } }
+                                        else { status = 3; } /> @um.MedicineName
                                     </td>
                                 </tr>
                             }
                 </table>
                 <input type="submit" value="Save" />
             </form>
+
             <div>
                 <h3>Status Today</h3>
+                @*<div><a href="?check=true"><button>Check Today Status</button></a></div>*@
                 <div class="text-center" style="background-color: @{ if (status == 1) { @Html.Raw(" green") } else if (status == 3) { @Html.Raw("red") } else { @Html.Raw("yellow") } } ">
-                    <img src="~/img/human_body.png" height="200" />
+
+                    @if (status == 1 && glycemic < 120)
+                    { <img src="~/img/Smile.png" height="200" /> }
+                    else if ((status == 1 || status == 2) && glycemic >= 120)
+                    { <img src="~/img/beware.png" height="200" /> }
+                    else if (status == 3 && glycemic < 120)
+                    {
+                        <img src="~/img/beware.png" height="200" />
+                    }
+                    else if (status == 3 && glycemic >= 120)
+                    { <img src="~/img/danger.png" height="200" /> }
                 </div>
             </div>
         </div>
@@ -192,7 +213,7 @@
     }]
     @{ int today = 0;}
     var label = [@{ for (int i = 0; i < dates.Count;i++) {
-            
+
             if (today != dates[i].Date.Day)
             {
                 string result = '"' + dates[i].Date.ToShortDateString() + '"';

@@ -16,7 +16,7 @@
     @using Microsoft.AspNet.Identity;
     @using Microsoft.AspNet.Identity.EntityFramework;
     @using Diabetes1.Models;
-    <dl class="dl-horizontal">     
+    <div class="dl-horizontal">     
         
          <dt>Medicine:</dt>
         <dd>       
@@ -50,7 +50,7 @@
             </table>
         </div>
    
-    </dl>
+    </div>
     
-    <div><a>Healthy Plan</a><a>Analyze</a></div>
+    <div><p> @Html.ActionLink("<<back to user info", "Index", "Manage", null, new { @class = "btn btn-info " })</p></div>
 </div>

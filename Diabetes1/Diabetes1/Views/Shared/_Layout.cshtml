@@ -25,19 +25,22 @@
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                        <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Patient <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                         
-                            <li>@Html.ActionLink("Patient login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                            <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
                             <li role="separator" class="divider"></li>
                             <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="http://localhost:54941/Home/About">How use this app</a></li>
+                            <li>@Html.ActionLink("How to use Web app?", "About", "Home", routeValues: null, htmlAttributes: new { id = "aboutLink" })</li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="http://localhost:54941/Account/HealthPlan">Health monitor</a></li>
+                            <li>@Html.ActionLink("Patient profile info.", "Index", "Manage", routeValues: null, htmlAttributes: new { id = "index" })</li>
+                            @*<li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("วางแผนและติดตามสุขภาพ", "HealthPlan", "Account", routeValues: null, htmlAttributes: new { id = "HealplanLink" })</li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="http://localhost:54941/Account/Index">Behavior monitor</a></li>
+                            <li>@Html.ActionLink("ติดตามพฤติกรรมบริโภคประจำวัน", "Index", "Account", routeValues: null, htmlAttributes: new { id = "HealplanLink" })</li>*@
                         </ul>
                            @*@Html.Partial("_LoginPartial")*@
                     </li>
@@ -45,25 +48,35 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nutritionists<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                        
-                            <li><a href="#">Login nutritionists</a></li>
+                            <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Nutrition management</a></li>
-
+                            <li>@Html.ActionLink("How to use Web app?", "About", "Home", routeValues: null, htmlAttributes: new { id = "aboutLink" })</li>
+                           @if (User.IsInRole("Nutritionists"))
+                           { <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Nutrition management", "Index", "Foods", routeValues: null, htmlAttributes: new { id = "aboutLink" })</li>
+                           }
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nure/Doctor <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nurse/Doctor <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Login</a></li>
+                            <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
                             <li role="separator" class="divider"></li>
-                            <li>@Html.ActionLink("Enter Patient to system", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li>@Html.ActionLink("How to use Web app?", "About", "Home", routeValues: null, htmlAttributes: new { id = "aboutLink" })</li>
+                              @if (User.IsInRole("Nurse") || User.IsInRole("Doctor"))
+                            {
+                              <li role="separator" class="divider"></li>
+                             <li>@Html.ActionLink("Enter Patient to system", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Patient list</a></li>
+                            <li>@Html.ActionLink("List of patient.", "Index", "SearchUser", routeValues: null, htmlAttributes: new { id = "aboutLink" })</li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Activity management</a></li>
+                            <li>@Html.ActionLink("Exercise management.", "Index", "Exercises", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Manage recommend blood sugar level. ", "Index", "AnalyzeGlycemics", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                              }
                         </ul>
                     </li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    
                     @if (User.IsInRole("Administrator"))
                     {
                         <li>
@@ -79,7 +92,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - DiabetesCare WEb Application</p>
         </footer>
     </div>
 

@@ -1,0 +1,51 @@
+﻿@model Diabetes1.Models.BloodSuggestion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BloodSuggestion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Bloodvalue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bloodvalue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cause)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cause)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Management)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Management)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

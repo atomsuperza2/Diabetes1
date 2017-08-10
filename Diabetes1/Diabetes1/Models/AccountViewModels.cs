@@ -71,6 +71,7 @@ namespace Diabetes1.Models
     {
 
         [Required]
+        [StringLength(20, ErrorMessage = "The username 8-20 characters.", MinimumLength = 8)]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
@@ -81,7 +82,7 @@ namespace Diabetes1.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "The password 8-20 characters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -92,17 +93,21 @@ namespace Diabetes1.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
+        [StringLength(45, ErrorMessage = "The first name max 45 characters.", MinimumLength = 1)]
         [Display(Name = "FirstName")]
         public string FirstName { get; set; }
 
         [Required]
+        [StringLength(45, ErrorMessage = "The last name max 45 characters.", MinimumLength = 1)]
         [Display(Name = "LastName")]
         public string LastName { get; set; }
 
         [Required]
         [Display(Name = "Height")]
         public double Height { get; set; }
-
+        [Required]
+        [Display(Name = "DiabetesType")]
+        public bool DiabetesType { get; set; }
         [Required]
         [Display(Name = "Weight")]
         public double Weight { get; set; }
@@ -121,9 +126,9 @@ namespace Diabetes1.Models
         [Required]
         [Display(Name = "ZipCode")]
         public int ZipCode { get; set; }
-        //[Required]
-        //[Display(Name = "StartTreatment ")]
-        //public DateTime StartTreatment { get; set; }
+        
+        [Display(Name = "StartTreatment ")]
+        public DateTime StartTreatment { get; set; }
         //public ICollection<UserProfileInfo> UserProfilrInfo { get; set; }
     }
 
